@@ -2,7 +2,7 @@ const mocha = require('mocha');
 const io = require('socket.io-client');
 const assert = require('assert');
 
-describe('echo test', function() {
+describe('echo test', () => {
     beforeEach( done => {
         server = require('../echo').server;
         done();
@@ -10,14 +10,14 @@ describe('echo test', function() {
 
     it("#send msg", (done) => {
         let server_address = "http://localhost:3000";
-        this.client = io.connect(server_address);
+        let client = io.connect(server_address);
 
         let message = "hello";
-        this.client.on("echo", (reply) => {
+        client.on("echo", (reply) => {
             assert.equal(reply, "reply " + message);
             done();
         });
 
-        this.client.emit("echo", message);
+        client.emit("echo", message);
     });
 });
